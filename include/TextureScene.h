@@ -7,6 +7,24 @@
 
 #endif
 
-class TextureScene
+class TextureScene : public Scene
 {
+public:
+ TextureScene();
+ ~TextureScene();
+ 
+ virtual void display();
+private:
+    void init();
+    glm::mat4 model;
+    glm::mat4 view;
+    glm::mat4 projection;
+    unsigned int vertexShader;
+    unsigned int fragShader;
+    unsigned int program;
+    float * points;
+    unsigned char * indies;
+    unsigned int VAO;
+    unsigned int VBO;
+    unsigned int EBO;
 };

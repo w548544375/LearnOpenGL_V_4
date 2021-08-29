@@ -42,7 +42,7 @@ GLuint ShaderLoader::createShader(GLenum vertexOrFragType, const char *path)
         default:
             break;
         }
-        fprintf(stderr, "failed to compile %s shader(%s):%s\r\n", type, path, infoStr);
+        fprintf(stderr, "failed to compile %s shader(%s):%s\r\n", type.c_str(), path, infoStr);
         delete[] infoStr;
     }
     return shader;

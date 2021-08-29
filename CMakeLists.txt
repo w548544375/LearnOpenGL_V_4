@@ -8,6 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(OpenGL_GL_PREFERENCE "GLVND")
 
 add_subdirectory(lib/gl3w)
+add_subdirectory(lib/glm)
 
 add_executable(${PROJECT_NAME} 
 lib/gl3w/src/gl3w.c
@@ -22,6 +23,7 @@ find_package(OpenGL REQUIRED)
 
 target_include_directories(${PROJECT_NAME} PUBLIC 
     "${PROJECT_SOURCE_DIR}/lib/gl3w/include"
+    "${PROJECT_SOURCE_DIR}/lib/glm"
     "${PROJECT_SOURCE_DIR}/include"
 )
 
