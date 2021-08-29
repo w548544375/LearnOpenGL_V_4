@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.21)
+cmake_minimum_required(VERSION 3.16)
 
 project(LearnOpenGL VERSION 1.0.0)
 
@@ -9,7 +9,12 @@ set(OpenGL_GL_PREFERENCE "GLVND")
 
 add_subdirectory(lib/gl3w)
 
-add_executable(${PROJECT_NAME} source/TrangleScene.cpp source/ShaderLoader.cpp source/StbImage.cpp main.cpp)
+add_executable(${PROJECT_NAME} 
+lib/gl3w/src/gl3w.c
+source/TrangleScene.cpp 
+source/ShaderLoader.cpp 
+source/StbImage.cpp 
+main.cpp)
 
 find_package(glfw3 REQUIRED)
 
