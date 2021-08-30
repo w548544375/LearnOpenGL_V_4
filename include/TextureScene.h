@@ -16,11 +16,14 @@ public:
  virtual void display();
 private:
     void init();
+    void initProgarm();
+    void setProgramParam();
+    glm::vec3 cameraPos;
+    glm::vec3 cameraFront;
+    glm::vec3 cameraUp;
     glm::mat4 model;
     glm::mat4 view;
     glm::mat4 projection;
-    unsigned int vertexShader;
-    unsigned int fragShader;
     unsigned int program;
     float * points;
     unsigned char * indies;

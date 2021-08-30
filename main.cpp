@@ -1,4 +1,5 @@
-#include "TrangleScene.h"
+// #include "TrangleScene.h"
+#include "TextureScene.h"
 //export MESA_GL_VERSION_OVERRIDE=3.3
 using namespace std;
 
@@ -26,7 +27,7 @@ int main(int argc, char *argv[])
     }
 
     glfwMakeContextCurrent(window);
-
+    glEnable(GL_DEPTH_TEST); 
     glClearColor(0.4f, 0.4f, 0.5f, 1.0f);
 
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
@@ -37,11 +38,12 @@ int main(int argc, char *argv[])
 
     glViewport(0, 0, 800, 450);
 
-    Scene *scene = new TrangleScene;
+    // Scene *scene = new TrangleScene;
+    Scene * scene = new TextureScene;
     while (!glfwWindowShouldClose(window))
     {
 
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         scene->display();
         glfwSwapBuffers(window);
         glfwPollEvents();

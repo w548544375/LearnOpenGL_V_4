@@ -14,6 +14,7 @@ add_executable(${PROJECT_NAME}
 lib/gl3w/src/gl3w.c
 source/TrangleScene.cpp 
 source/ShaderLoader.cpp 
+source/TextureScene.cpp
 source/StbImage.cpp 
 main.cpp)
 
