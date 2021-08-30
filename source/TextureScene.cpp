@@ -28,8 +28,8 @@ void TextureScene::init()
     glCreateBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER,24,this->points,GL_STATIC_DRAW);
-    glVertexAttribPointer(0,3,GL_FLOAT,false,3 * sizeof(float),0);
     glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0,3,GL_FLOAT,false,3 * sizeof(float),0);
 
     this->indies = new unsigned char[36]{
         0,1,3,3,1,2, // front
@@ -46,6 +46,8 @@ void TextureScene::init()
     
     glVertexAttribPointer(0,3,GL_FLOAT,false,3 *sizeof(float),0);
     glEnableVertexAttribArray(0);
+
+    glBindVertexArray(0);
 }
 
 
@@ -82,4 +84,5 @@ void TextureScene::display()
     this->setProgramParam();
     glBindVertexArray(this->VAO);
     glDrawElements(GL_TRIANGLES,36,GL_UNSIGNED_BYTE,0);
+    glBindVertexArray(0);
 }
