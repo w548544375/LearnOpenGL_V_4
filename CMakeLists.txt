@@ -15,6 +15,8 @@ lib/gl3w/src/gl3w.c
 source/TrangleScene.cpp 
 source/ShaderLoader.cpp 
 source/TextureScene.cpp
+source/Scene3D.cpp
+source/Object3D.cpp
 source/StbImage.cpp 
 main.cpp)
 
