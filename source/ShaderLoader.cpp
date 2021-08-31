@@ -7,7 +7,7 @@ GLuint ShaderLoader::createShader(GLenum vertexOrFragType, const char *path)
     std::ifstream infile(path);
     if (!infile.is_open())
     {
-        std::cerr << "file " << path << " not found!" << std::endl;
+        std::cout << "file " << path << " not found!" << std::endl;
         return shader;
     }
     std::stringstream sstream;
@@ -56,7 +56,7 @@ GLuint ShaderLoader::creatProgram(Shader *shaders)
     }
     GLuint program = glCreateProgram();
     struct Shader *shader = shaders;
-    while (shader == nullptr || shader->typeEnum != GL_NONE)
+    while (shader != nullptr && shader->typeEnum != GL_NONE)
     {
         GLuint createdShader = this->createShader(shader->typeEnum, shader->path);
         glAttachShader(program, createdShader);
