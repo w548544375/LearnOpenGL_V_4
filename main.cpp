@@ -1,15 +1,15 @@
 // #include "TrangleScene.h"
-#include "TextureScene.h"
+#include "SimpleLightScene.h"
 //export MESA_GL_VERSION_OVERRIDE=3.3
 using namespace std;
 
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 Scene *scene = nullptr;
-void framebuffer_size_callback(GLFWwindow *window, int width, int height);
-void processInput(GLFWwindow *window);
-void mouse_callback(GLFWwindow *window, double xpos, double ypos);
-void scroll_callback(GLFWwindow *window, double xoffset, double yoffset);
+// void framebuffer_size_callback(GLFWwindow *window, int width, int height);
+// void processInput(GLFWwindow *window);
+// void mouse_callback(GLFWwindow *window, double xpos, double ypos);
+// void scroll_callback(GLFWwindow *window, double xoffset, double yoffset);
 
 int main(int argc, char *argv[])
 {
@@ -40,21 +40,22 @@ int main(int argc, char *argv[])
     glEnable(GL_DEPTH_TEST);
     glClearColor(0.4f, 0.4f, 0.5f, 1.0f);
     // tell GLFW to capture our mouse
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-    glfwSetCursorPosCallback(window, mouse_callback);
-    glfwSetScrollCallback(window, scroll_callback);
+    // glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    // glfwSetCursorPosCallback(window, mouse_callback);
+    // glfwSetScrollCallback(window, scroll_callback);
     char str[128];
     sprintf(str, "👿 OpenGL %s,GLSL:%s is used by this program.", glGetString(GL_VERSION), glGetString(GL_SHADING_LANGUAGE_VERSION));
     cout << str << endl;
     glViewport(0, 0, 800, 450);
     // Scene *scene = new TrangleScene;
-    scene = new TextureScene;
+    // scene = new TextureScene;
+    scene = new SimpleLightScene(window);
     while (!glfwWindowShouldClose(window))
     {
         float currentFrameTime = glfwGetTime();
         deltaTime = currentFrameTime - lastFrame;
         lastFrame = currentFrameTime;
-        processInput(window);
+        // processInput(window);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         scene->display();
         glfwSwapBuffers(window);
@@ -65,32 +66,32 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-void framebuffer_size_callback(GLFWwindow *window, int width, int height)
-{
-    // cout << "window resized : (" << width << "," << height << ");" << endl;
-    glViewport(0, 0, width, height);
-}
+// void framebuffer_size_callback(GLFWwindow *window, int width, int height)
+// {
+//     // cout << "window resized : (" << width << "," << height << ");" << endl;
+//     glViewport(0, 0, width, height);
+// }
 
-void processInput(GLFWwindow *window)
-{
-    if (scene == nullptr)
-        return;
-    TextureScene *texScene = (TextureScene *)scene;
-    texScene->onInput(window, deltaTime);
-}
+// void processInput(GLFWwindow *window)
+// {
+//     if (scene == nullptr)
+//         return;
+//     TextureScene *texScene = (TextureScene *)scene;
+//     texScene->onInput(window, deltaTime);
+// }
 
-void mouse_callback(GLFWwindow *window, double xpos, double ypos)
-{
-    if (scene == nullptr)
-        return;
-    TextureScene *texScene = (TextureScene *)scene;
-    texScene->onMouseEvent(window, xpos, ypos);
-}
+// void mouse_callback(GLFWwindow *window, double xpos, double ypos)
+// {
+//     if (scene == nullptr)
+//         return;
+//     TextureScene *texScene = (TextureScene *)scene;
+//     texScene->onMouseEvent(window, xpos, ypos);
+// }
 
-void scroll_callback(GLFWwindow *window, double xoffset, double yoffset)
-{
-    if (scene == nullptr)
-        return;
-    TextureScene *texScene = (TextureScene *)scene;
-    texScene->onScroll(window, xoffset, yoffset);
-}
+// void scroll_callback(GLFWwindow *window, double xoffset, double yoffset)
+// {
+//     if (scene == nullptr)
+//         return;
+//     TextureScene *texScene = (TextureScene *)scene;
+//     texScene->onScroll(window, xoffset, yoffset);
+// }

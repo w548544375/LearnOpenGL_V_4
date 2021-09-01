@@ -18,6 +18,7 @@ source/TextureScene.cpp
 source/Scene3D.cpp
 source/Object3D.cpp
 source/Camera3D.cpp
+source/SimpleLightScene.cpp
 source/StbImage.cpp 
 main.cpp)
 
