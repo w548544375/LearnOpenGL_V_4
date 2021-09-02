@@ -14,9 +14,9 @@ Scene::Scene(GLFWwindow *window)
     float aspect = windowWidth / windowHeight;
     this->camera = new Camera3D(fov, aspect, 1.0f, 100.0f);
     this->camera->SetPosition(glm::vec3(0.0f, 1.0f, 5.0f));
-
     lastX = windowWidth / 2;
     lastY = windowHeight / 2;
+    bFirstMove = true;
 }
 
 Scene::~Scene()
@@ -63,6 +63,12 @@ void Scene::MouseCallBack(GLFWwindow *window, double x, double y)
 {
     if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_2) == GLFW_PRESS)
     {
+        if (bFirstMove)
+        {
+            lastX = windowWidth / 2;
+            lastY = windowHeight / 2;
+            bFirstMove = false;
+        }
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
         float xoffset = lastX - x;
         float yoffset = lastY - y;

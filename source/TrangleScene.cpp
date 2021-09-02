@@ -59,8 +59,8 @@ TrangleScene::TrangleScene(GLFWwindow *window) : Scene(window)
     // }
 
     ShaderLoader loader;
-    Shader shaders[] = {{GL_VERTEX_SHADER, "./shaders/trangle.vert"},
-                        {GL_FRAGMENT_SHADER, "./shaders/trangle.frag"}};
+    ShaderSource shaders[] = {{GL_VERTEX_SHADER, "./shaders/trangle.vert"},
+                              {GL_FRAGMENT_SHADER, "./shaders/trangle.frag"}};
     GLuint program = loader.creatProgram(shaders);
     glUseProgram(program);
 }

@@ -65,9 +65,9 @@ SimpleLightScene::SimpleLightScene(GLFWwindow *window) : Scene(window)
 
 void SimpleLightScene::init()
 {
-    Shader shaders[] = {{GL_VERTEX_SHADER, "./shaders/simple_light.vert"},
-                        {GL_FRAGMENT_SHADER, "./shaders/simple_light.frag"},
-                        {GL_NONE, ""}};
+    ShaderSource shaders[] = {{GL_VERTEX_SHADER, "./shaders/simple_light.vert"},
+                              {GL_FRAGMENT_SHADER, "./shaders/simple_light.frag"},
+                              {GL_NONE, ""}};
     ShaderLoader loader;
     this->program = loader.creatProgram(shaders);
     this->SetTexture("texture", GL_TEXTURE0, "./assets/TexturesCom_MetalFloorsPainted0012_1_seamless_S.jpg", 0);

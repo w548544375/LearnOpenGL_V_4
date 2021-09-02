@@ -27,6 +27,7 @@ protected:
 
     float lastX;
     float lastY;
+    bool bFirstMove;
 };
 
 #endif

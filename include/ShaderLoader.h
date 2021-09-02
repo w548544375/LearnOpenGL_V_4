@@ -2,17 +2,17 @@
 #define __SHADER_LOADER_H__
 #include "common.h"
 
-typedef struct Shader
+typedef struct ShaderSource
 {
     GLenum typeEnum;
     const char *path;
-} SHADER, *PSHADER;
+} SHADER_SOURCE, *PSHADER_SOURCE;
 
 class ShaderLoader
 {
 
 public:
-    GLuint creatProgram(Shader *shader);
+    GLuint creatProgram(ShaderSource *shader);
 
 private:
     GLuint createShader(GLenum vertexOrFragType, const char *path);

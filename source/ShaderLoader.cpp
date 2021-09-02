@@ -48,14 +48,14 @@ GLuint ShaderLoader::createShader(GLenum vertexOrFragType, const char *path)
     return shader;
 }
 
-GLuint ShaderLoader::creatProgram(Shader *shaders)
+GLuint ShaderLoader::creatProgram(ShaderSource *shaders)
 {
     if (shaders == nullptr)
     {
         return -1;
     }
     GLuint program = glCreateProgram();
-    struct Shader *shader = shaders;
+    struct ShaderSource *shader = shaders;
     while (shader != nullptr && shader->typeEnum != GL_NONE)
     {
         GLuint createdShader = this->createShader(shader->typeEnum, shader->path);

@@ -82,9 +82,9 @@ void TextureScene::init()
 void TextureScene::initProgarm()
 {
     ShaderLoader loader;
-    Shader shaders[] = {{GL_VERTEX_SHADER, "./shaders/texture.vert"},
-                        {GL_FRAGMENT_SHADER, "./shaders/texture.frag"},
-                        {GL_NONE, ""}};
+    ShaderSource shaders[] = {{GL_VERTEX_SHADER, "./shaders/texture.vert"},
+                              {GL_FRAGMENT_SHADER, "./shaders/texture.frag"},
+                              {GL_NONE, ""}};
     this->program = loader.creatProgram(shaders);
     glUseProgram(program);
 }
