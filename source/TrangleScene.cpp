@@ -1,6 +1,6 @@
 #include "TrangleScene.h"
 
-TrangleScene::TrangleScene()
+TrangleScene::TrangleScene(GLFWwindow *window) : Scene(window)
 {
     const float points[] = {
         0.0f,

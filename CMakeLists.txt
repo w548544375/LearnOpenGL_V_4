@@ -12,6 +12,7 @@ add_subdirectory(lib/glm)
 
 add_executable(${PROJECT_NAME} 
 lib/gl3w/src/gl3w.c
+source/Scene.cpp
 source/TrangleScene.cpp 
 source/ShaderLoader.cpp 
 source/TextureScene.cpp

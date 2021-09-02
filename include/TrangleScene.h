@@ -8,7 +8,7 @@ class TrangleScene : public Scene
 {
 
 public:
-    TrangleScene();
+    TrangleScene(GLFWwindow *window);
     ~TrangleScene();
     virtual void display();
     GLuint CreateShader(GLenum eShaderType, const std::string &strShaderFile);

@@ -19,6 +19,8 @@ class Camera3D
 public:
     Camera3D(float fov, float aspect, float near, float far);
 
+    void updateFOV(float fov);
+
     void updateProjection(float aspec);
 
     void SetPosition(glm::vec3 newPos);
@@ -30,6 +32,14 @@ public:
     CAMERA_INFO GetCameraInfo() const;
 
     void LookAt(glm::vec3 target);
+
+    void AddYawInput(float value);
+
+    void AddPitchInput(float value);
+
+    void AddRollInput(float value);
+
+    void rotate(float angle, glm::vec3 axis);
 
 private:
     float fieldOfView;

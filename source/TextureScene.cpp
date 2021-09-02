@@ -1,6 +1,6 @@
 #include "TextureScene.h"
 
-TextureScene::TextureScene()
+TextureScene::TextureScene(GLFWwindow *window) : Scene(window)
 {
     this->init();
     this->initProgarm();

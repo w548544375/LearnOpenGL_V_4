@@ -1,19 +1,8 @@
 #include "SimpleLightScene.h"
 #include "ShaderLoader.h"
 
-SimpleLightScene::SimpleLightScene(GLFWwindow *window)
+SimpleLightScene::SimpleLightScene(GLFWwindow *window) : Scene(window)
 {
-    this->ctx = window;
-    position = glm::vec3(0.0f);
-    this->fov = 45.0f;
-    int width, height;
-    glfwGetWindowSize(window, &width, &height);
-    this->windowWidth = width * 1.0f;
-    this->windowHeight = height * 1.0f;
-    float aspect = windowWidth / windowHeight;
-    this->camera = new Camera3D(fov, aspect, 1.0f, 100.0f);
-    this->camera->SetPosition(glm::vec3(0.0f, 2.0f, 5.0f));
-    this->camera->LookAt(glm::vec3(0.0f, 0.0f, 0.0f));
     float vertices[] = {
         -0.5f, -0.5f, -0.5f, 0.0f, 0.0f,
         0.5f, -0.5f, -0.5f, 1.0f, 0.0f,
@@ -72,7 +61,6 @@ SimpleLightScene::SimpleLightScene(GLFWwindow *window)
     glBindVertexArray(0);
 
     this->init();
-    this->registerCallbacks();
 }
 
 void SimpleLightScene::init()
@@ -126,7 +114,7 @@ void SimpleLightScene::SetParam()
     unsigned int matLocation = glGetUniformLocation(this->program, "mvpMat");
     glm::mat4 translate = glm::mat4(1.0f);
     translate = glm::translate(translate, position);
-    translate = glm::scale(translate, glm::vec3(3.0f, 3.0f, 3.0f));
+    // translate = glm::scale(translate, glm::vec3(3.0f, 3.0f, 3.0f));
     glm::mat4 mvp = this->camera->getProjectionMatrix() * this->camera->getViewMatrix() * translate;
     glUniformMatrix4fv(matLocation, 1, false, glm::value_ptr(mvp));
 }
@@ -138,23 +126,4 @@ void SimpleLightScene::display()
     this->SetParam();
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 36);
     glBindVertexArray(0);
-}
-
-void SimpleLightScene::registerCallbacks()
-{
-    glfwSetFramebufferSizeCallback(this->ctx,
-                                   [](GLFWwindow *window, int x, int y)
-                                   {
-                                       // this->FrameBufferSizeCallback(window, x, y); });
-                                   });
-    glfwSetCursorPosCallback(this->ctx,
-                             [](GLFWwindow *window, double x, double y)
-                             {
-                                 // &SimpleLightScene::MouseCallBack);
-                             });
-    glfwSetScrollCallback(this->ctx,
-                          [](GLFWwindow *window, double x, double y)
-                          {
-                              //  &SimpleLightScene::ScrollCallback);
-                          });
 }

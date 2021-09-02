@@ -10,7 +10,7 @@
 class TextureScene : public Scene
 {
 public:
-    TextureScene();
+    TextureScene(GLFWwindow *window);
     ~TextureScene();
 
     virtual void display();
