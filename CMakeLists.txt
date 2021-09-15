@@ -9,6 +9,7 @@ set(OpenGL_GL_PREFERENCE "GLVND")
 
 add_subdirectory(lib/gl3w)
 add_subdirectory(lib/glm)
+add_subdirectory(lib/SDL)
 
 add_executable(${PROJECT_NAME} 
 lib/gl3w/src/gl3w.c
@@ -32,13 +33,15 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     "${PROJECT_SOURCE_DIR}/lib/gl3w/include"
     "${PROJECT_SOURCE_DIR}/lib/glm"
     "${PROJECT_SOURCE_DIR}/include"
+    "${PROJECT_SOURCE_DIR}/lib/SDL/include"
 )
 
 
 target_link_libraries(${PROJECT_NAME} 
     PUBLIC glfw
     PUBLIC OpenGL::OpenGL
-    PUBLIC gl3w   
+    PUBLIC gl3w
+    PUBLIC SDL
 )
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/shaders DESTINATION ${CMAKE_CURRENT_BINARY_DIR})

@@ -1,5 +1,4 @@
 // #include "TrangleScene.h"
-#include "SDL.h"
 #include "SimpleLightScene.h"
 //export MESA_GL_VERSION_OVERRIDE=3.3
 using namespace std;
@@ -12,57 +11,42 @@ void processInput(GLFWwindow *window);
 void mouse_callback(GLFWwindow *window, double xpos, double ypos);
 void scroll_callback(GLFWwindow *window, double xoffset, double yoffset);
 
-const int DEFAULT_WINDOW_WIDHT = 800;
-const int DEFAULT_WINDOW_HEIGHT = 450;
-
 int main(int argc, char *argv[])
 {
-    SDL_Window * window = SDL_CreateWindow("Learn OpenGL",SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_CENTERED,DEFAULT_WINDOW_WIDHT,DEFAULT_WINDOW_HEIGHT,SDL_WINDOW_SHOWN|SDL_WINDOW_OPENGL);
-    if(window == nullptr)
+    if (!glfwInit())
     {
-        std::cout << "window init failed with " << SDL_GetError() << std::endl;
+        cerr << "error init glfw" << endl;
+        return -1;
+    }
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+    if (!gl3wInit())
+    {
+        cerr << "error init gl3w" << endl;
+        return -1;
+    }
+    GLFWwindow *window = glfwCreateWindow(800, 450, "OpenGL", nullptr, nullptr);
+
+    if (!window)
+    {
+        cerr << "error create glfw window" << endl;
+        glfwTerminate();
         return -1;
     }
 
-    SDL_Renderer * render = SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED);
-    if(render == nullptr)
-    {
-        std::cout << "render create failed." << SDL_GetError() << std::endl;
-        return -1;
-    }
-
-    SDL_GLContext context = SDL_GL_CreateContext(window);
-    if(!context)
-    {
-        std::cout << "SDL create GL context failed." << SDL_GetError() << std::endl;
-        return -1;
-    }
-
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION,4);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION,6);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK,SDL_GL_CONTEXT_PROFILE_CORE);
-
-    if(gl3wInit())
-    {
-        std::cout << "gl3w init failed." << std::endl;
-        return -1;
-    }
-
-    if(gl3wIsSupported(4,6))
-    {
-        std::cout << "gl3w not support OpengGL version 4.6" << std::endl;
-    }
-
-    char buf[256];
-    memset(buf,0,sizeof(buf));
-    sprintf(buf,"Using OpengGL %s,Shading Language Version:%s\n",glGetString(GL_VERSION),glGetString(GL_SHADING_LANGUAGE_VERSION));
-    std::cout << buf;
-
+    glfwMakeContextCurrent(window);
     glEnable(GL_DEPTH_TEST);
     glClearColor(0.4f, 0.4f, 0.5f, 1.0f);
-    glViewport(0, 0, DEFAULT_WINDOW_WIDHT, DEFAULT_WINDOW_HEIGHT);
-
-
+    // tell GLFW to capture our mouse
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    glfwSetCursorPosCallback(window, mouse_callback);
+    glfwSetScrollCallback(window, scroll_callback);
+    char str[128];
+    sprintf(str, "👿 OpenGL %s,GLSL:%s is used by this program.", glGetString(GL_VERSION), glGetString(GL_SHADING_LANGUAGE_VERSION));
+    cout << str << endl;
+    glViewport(0, 0, 800, 450);
     // Scene *scene = new TrangleScene;
     // scene = new TextureScene;
     scene = new SimpleLightScene(window);
@@ -71,7 +55,7 @@ int main(int argc, char *argv[])
         processInput(window);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         scene->display();
-
+        glfwSwapBuffers(window);
         glfwPollEvents();
     }
     delete scene;
