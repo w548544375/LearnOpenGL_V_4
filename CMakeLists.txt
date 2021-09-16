@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.20)
 
 project(LearnOpenGL VERSION 1.0.0)
 
@@ -7,42 +7,67 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(OpenGL_GL_PREFERENCE "GLVND")
 
+#set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+
 add_subdirectory(lib/gl3w)
 add_subdirectory(lib/glm)
 add_subdirectory(lib/SDL)
+add_subdirectory(lib/glfw)
+
+# 遍历source文件夹的cpp文件
+set(SOURCE_LIST "")
+file(GLOB LEARN_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/source/*.cpp")
+foreach(cppfile ${LEARN_SOURCES})
+    list(APPEND SOURCE_LIST ${cppfile})
+endforeach()
+
+set(HEADER_LIST "")
+file(GLOB LEARN_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h")
+foreach(header ${LEARN_HEADERS})
+    list(APPEND HEADER_LIST ${header})
+endforeach()
+
 
 add_executable(${PROJECT_NAME} 
-lib/gl3w/src/gl3w.c
-source/Scene.cpp
-source/Shader.cpp
-source/TrangleScene.cpp 
-source/ShaderLoader.cpp 
-source/TextureScene.cpp
-source/Scene3D.cpp
-source/Object3D.cpp
-source/Camera3D.cpp
-source/SimpleLightScene.cpp
-source/StbImage.cpp 
-main.cpp)
-
-find_package(glfw3 REQUIRED)
+${SOURCE_LIST}
+${HEADER_LIST}
+main_glfw.cpp)
 
 find_package(OpenGL REQUIRED)
+if(${OPENGL_opengl_LIBRARY})
+    message("Found OpenGL GLVND-based:${OPENGL_opengl_LIBRARY}")
+    set(OPENGL_LIB OpenGL::OpenGL)
+else()
+    message("Found OpenGL: ${OPENGL_gl_LIBRARY}")
+    set(OPENGL_LIB OpenGL::GL)
+endif()
 
-target_include_directories(${PROJECT_NAME} PUBLIC 
-    "${PROJECT_SOURCE_DIR}/lib/gl3w/include"
-    "${PROJECT_SOURCE_DIR}/lib/glm"
-    "${PROJECT_SOURCE_DIR}/include"
-    "${PROJECT_SOURCE_DIR}/lib/SDL/include"
-)
+include_directories(
+     "${PROJECT_SOURCE_DIR}/include"
+     "${PROJECT_SOURCE_DIR}/lib/glfw/include"
+     "${PROJECT_SOURCE_DIR}/lib/gl3w/include"
+     "${PROJECT_SOURCE_DIR}/lib/glm"
+     "${PROJECT_SOURCE_DIR}/lib/SDL/include"
+    )
+
+#target_include_directories(${PROJECT_NAME} PUBLIC
+#    "${PROJECT_SOURCE_DIR}/lib/glfw/include"
+#    "${PROJECT_SOURCE_DIR}/lib/gl3w/include"
+#    "${PROJECT_SOURCE_DIR}/lib/glm"
+#    "${PROJECT_SOURCE_DIR}/lib/SDL/include"
+#    "${PROJECT_SOURCE_DIR}/include"
+#)
 
 
 target_link_libraries(${PROJECT_NAME} 
     PUBLIC glfw
-    PUBLIC OpenGL::OpenGL
+    PUBLIC ${OPENGL_LIB}
     PUBLIC gl3w
-    PUBLIC SDL
+    PUBLIC lib/SDL/SDL2d
+    PUBLIC lib/SDL/SDL2maind
 )
+
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/shaders DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR})

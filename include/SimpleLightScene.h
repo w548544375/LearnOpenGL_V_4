@@ -10,7 +10,7 @@ private:
     /* data */
 public:
     SimpleLightScene(GLFWwindow *window);
-    ~SimpleLightScene();
+    virtual ~SimpleLightScene();
     virtual void display();
 
 private:

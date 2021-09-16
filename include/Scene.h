@@ -8,12 +8,11 @@ public:
     virtual void display() = 0;
 
     Scene(GLFWwindow *window);
-    ~Scene();
+    virtual ~Scene();
     void FrameBufferSizeCallback(GLFWwindow *window, int width, int height);
     void ProcessInput(GLFWwindow *window);
     void MouseCallBack(GLFWwindow *window, double x, double y);
     void ScrollCallback(GLFWwindow *window, double xoffset, double yoffset);
-    void Run();
 
 protected:
     Camera3D *camera;

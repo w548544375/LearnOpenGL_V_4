@@ -107,6 +107,7 @@ int SimpleLightScene::SetTexture(std::string name, GLenum textureIdx, std::strin
 
 SimpleLightScene::~SimpleLightScene()
 {
+    Scene::~Scene();
 }
 
 void SimpleLightScene::SetParam()

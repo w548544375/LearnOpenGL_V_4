@@ -1,6 +1,7 @@
 // #include "TrangleScene.h"
 #include "SDL.h"
 #include "SimpleLightScene.h"
+
 //export MESA_GL_VERSION_OVERRIDE=3.3
 using namespace std;
 
@@ -65,16 +66,16 @@ int main(int argc, char *argv[])
 
     // Scene *scene = new TrangleScene;
     // scene = new TextureScene;
-    scene = new SimpleLightScene(window);
-    while (!glfwWindowShouldClose(window))
-    {
-        processInput(window);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        scene->display();
+//    scene = new SimpleLightScene(window);
+//    while (!glfwWindowShouldClose(window))
+//    {
+//        processInput(window);
+//        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//        scene->display();
 
-        glfwPollEvents();
-    }
-    delete scene;
+//        glfwPollEvents();
+//    }
+//    delete scene;
     glfwTerminate();
     return 0;
 }

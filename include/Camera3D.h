@@ -7,8 +7,8 @@ typedef struct PerspectiveCameraInfo
 {
     float fov;
     float aspect;
-    float near;
-    float far;
+    float nearCut;
+    float farCut;
     glm::vec3 cameraUp;
     glm::vec3 target;
     glm::vec3 cameraPosition;
@@ -44,8 +44,8 @@ public:
 private:
     float fieldOfView;
     float aspectio;
-    float near;
-    float far;
+    float nearCut;
+    float farCut;
 
     glm::vec3 up;
     glm::vec3 lookTarget;

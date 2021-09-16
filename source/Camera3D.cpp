@@ -1,11 +1,11 @@
-#include "Camera3D.h"
+﻿#include "Camera3D.h"
 
 Camera3D::Camera3D(float fov, float aspect, float nearCut, float farCut)
 {
     fieldOfView = fov;
     aspectio = aspect;
-    near = nearCut;
-    far = farCut;
+    nearCut = nearCut;
+    farCut = farCut;
     up = glm::vec3(0.0f, 1.0f, 0.0f);
     lookTarget = glm::vec3(0.0f, 0.0f, -1.0f);
     position = glm::vec3(0.0f, 0.0f, 2.0f);
@@ -21,7 +21,7 @@ void Camera3D::updateFOV(float fov)
 
 void Camera3D::updateProjection(float aspec)
 {
-    projectionMatrix = glm::perspective(glm::radians(fieldOfView), aspec, near, far);
+    projectionMatrix = glm::perspective(glm::radians(fieldOfView), aspec, nearCut, farCut);
 }
 
 void Camera3D::SetPosition(glm::vec3 newPos)
@@ -32,19 +32,28 @@ void Camera3D::SetPosition(glm::vec3 newPos)
     this->LookAt(lookTarget);
 }
 
-// yaw 偏航角
+/**
+ * @brief Camera3D::AddYawInput 添加偏航角
+ * @param value
+ */
 void Camera3D::AddYawInput(float value)
 {
     this->rotate(value, glm::vec3(0.0f, 1.0f, 0.0f));
 }
 
-// pitch 俯仰角
+/**
+ * @brief Camera3D::AddPitchInput 添加俯仰角
+ * @param value
+ */
 void Camera3D::AddPitchInput(float value)
 {
     this->rotate(value, glm::vec3(1.0f, 0.0f, 0.0f));
 }
 
-//roll 翻滚角
+/**
+ * @brief Camera3D::AddRollInput 添加翻滚角
+ * @param value
+ */
 void Camera3D::AddRollInput(float value)
 {
     this->rotate(value, glm::vec3(0.0f, 0.0f, 1.0f));
@@ -77,8 +86,8 @@ CAMERA_INFO Camera3D::GetCameraInfo() const
     PerspectiveCameraInfo cameraInfo;
     cameraInfo.fov = fieldOfView;
     cameraInfo.aspect = aspectio;
-    cameraInfo.near = near;
-    cameraInfo.far = far;
+    cameraInfo.nearCut = nearCut;
+    cameraInfo.farCut = farCut;
     cameraInfo.cameraUp = up;
     cameraInfo.target = lookTarget;
     cameraInfo.cameraPosition = position;
