@@ -7,13 +7,16 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(OpenGL_GL_PREFERENCE "GLVND")
 
-#set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+#set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+#windows
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+#linux
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
-add_subdirectory(lib/gl3w)
-add_subdirectory(lib/glm)
-add_subdirectory(lib/SDL)
-add_subdirectory(lib/glfw)
+add_subdirectory(lib/gl3w external/gl3w)
+add_subdirectory(lib/glm external/glm)
+add_subdirectory(lib/SDL external/SDL)
+add_subdirectory(lib/glfw external/glfw)
 
 # 遍历source文件夹的cpp文件
 set(SOURCE_LIST "")
@@ -59,13 +62,12 @@ include_directories(
 #    "${PROJECT_SOURCE_DIR}/include"
 #)
 
-
 target_link_libraries(${PROJECT_NAME} 
     PUBLIC glfw
     PUBLIC ${OPENGL_LIB}
     PUBLIC gl3w
-    PUBLIC lib/SDL/SDL2d
-    PUBLIC lib/SDL/SDL2maind
+    PUBLIC external/SDL/SDL2d
+    PUBLIC external/SDL/SDL2maind
 )
 
 
