@@ -66,8 +66,7 @@ target_link_libraries(${PROJECT_NAME}
     PUBLIC glfw
     PUBLIC ${OPENGL_LIB}
     PUBLIC gl3w
-    PUBLIC external/SDL/SDL2d
-    PUBLIC external/SDL/SDL2maind
+    PUBLIC SDL2
 )
 
 
