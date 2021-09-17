@@ -2,3 +2,4 @@ build/**
 lib/gl3w/include/**
 .vscode/**
 CMakeLists.txt.user
+CMakeLists.txt.**
