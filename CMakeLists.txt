@@ -32,10 +32,10 @@ foreach(header ${LEARN_HEADERS})
 endforeach()
 
 
-add_executable(${PROJECT_NAME} 
+add_executable(${PROJECT_NAME}
 ${SOURCE_LIST}
 ${HEADER_LIST}
-main_glfw.cpp)
+main.cpp)
 
 find_package(OpenGL REQUIRED)
 if(${OPENGL_opengl_LIBRARY})
@@ -64,9 +64,10 @@ include_directories(
 
 target_link_libraries(${PROJECT_NAME} 
     PUBLIC glfw
-    PUBLIC ${OPENGL_LIB}
     PUBLIC gl3w
     PUBLIC SDL2
+    PUBLIC external/SDL/SDL2maind
+    PUBLIC ${OPENGL_LIB}
 )
 
 
