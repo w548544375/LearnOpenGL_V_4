@@ -2,6 +2,7 @@
 #define __SCENES_H__
 #include <GL/gl3w.h>
 #include <GLFW/glfw3.h>
+#include "SDL.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>

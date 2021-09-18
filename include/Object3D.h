@@ -2,15 +2,18 @@
 #define __OBJECT_3D__
 #include "common.h"
 
+class RenderContext;
+
 class Object3D
 {
 public:
     unsigned int UUID;
-
     Object3D();
-    ~Object3D();
     void SetPosition(glm::vec3 newPos);
-
+    void SetRenderContext(RenderContext* ctx){
+        this->renderCtx = ctx;
+    }
+    RenderContext * getRenderContext() {return this->renderCtx;};
     glm::vec3 GetPosition() const
     {
         return glm::vec3(position.x, position.y, position.z);
@@ -34,15 +37,16 @@ public:
     };
 
     glm::mat4 GetModelMatrix() const;
-
-    virtual void draw() = 0;
+    virtual ~Object3D(){};
+    virtual void Draw() = 0;
     virtual void Tick(float delta) = 0;
-
+    virtual void Destroy() = 0;
 private:
     glm::vec3 position;
     glm::vec3 rotation;
     glm::vec3 scale;
     glm::mat4 modelMat;
+    RenderContext * renderCtx;
 };
 
 #endif

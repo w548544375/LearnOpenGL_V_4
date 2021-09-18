@@ -1,7 +1,18 @@
 #include "SDL_RenderContext.h"
 
-SDLRenderContext::SDLRenderContext(char * title,int width,int height) : RenderContext(title,width,height)
+SDLRenderContext::SDLRenderContext(const char * title,int width,int height) : RenderContext(title,width,height)
 {
+    this->bFirst = true;
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION,4);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION,6);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK,SDL_GL_CONTEXT_PROFILE_CORE);
+
+    if(SDL_Init(SDL_INIT_EVERYTHING ) < 0)
+    {
+        errorOccured = true;
+        std::cerr << "Error Init SDL " << SDL_GetError() << std::endl;
+        return;
+    }
     this->window = SDL_CreateWindow(title,SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED,contextWidth,contextHeight,SDL_WINDOW_SHOWN|SDL_WINDOW_OPENGL);
     if(!this->window)
     {
@@ -9,6 +20,7 @@ SDLRenderContext::SDLRenderContext(char * title,int width,int height) : RenderCo
         std::cerr << "error create sdl window " << SDL_GetError() << std::endl;
         return;
     }
+
     SDL_Renderer * render = SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED);
     if(render == nullptr)
     {
@@ -17,29 +29,25 @@ SDLRenderContext::SDLRenderContext(char * title,int width,int height) : RenderCo
         return;
     }
 
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION,4);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION,5);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK,SDL_GL_CONTEXT_PROFILE_CORE);
-
-    if(gl3wInit())
-    {
-        errorOccured = true;
-        std::cerr << "gl3w init failed." << std::endl;
-        return;
-    }
-
-    if(!gl3wIsSupported(4,5))
-    {
-        errorOccured = true;
-        std::cout << "gl3w not support OpengGL version 4.5" << std::endl;
-    }
-
     this->context = SDL_GL_CreateContext(window);
     if(!this->context)
     {
         errorOccured = true;
         std::cerr << "SDL create GL context failed." << SDL_GetError() << std::endl;
         return;
+    }
+    SDL_GL_SetSwapInterval(1);
+    if(gl3wInit())
+    {
+        errorOccured = true;
+        std::cerr << "gl3w init failed " << std::endl;
+        return;
+    }
+
+    if(!gl3wIsSupported(4,6))
+    {
+        errorOccured = true;
+        std::cout << "gl3w not support OpengGL version 4.6" << std::endl;
     }
 
     char buf[256];
@@ -64,6 +72,7 @@ void SDLRenderContext::ProcessInput()
         case SDL_MOUSEBUTTONDOWN:
         case SDL_MOUSEWHEEL:
         case SDL_MOUSEMOTION:
+        case SDL_MOUSEBUTTONUP:
             HandleMouseEvent(event);
             break;
         }
@@ -105,26 +114,23 @@ void SDLRenderContext::HandleKeyDown(SDL_Event ev)
 
 void SDLRenderContext::HandleMouseEvent(SDL_Event ev)
 {
-
+    if(ev.type == SDL_MOUSEMOTION) {
+        //        std::cout << "Motion({x:" << ev.motion.x  << ",y:" << ev.motion.y << "}),RelMotion({x:" << ev.motion.xrel << ",y:" << ev.motion.yrel << "});\n";
+        if(bFirst){
+            this->lastX = this->Width() / 2.0f;
+            this->lastY = this->Height() / 2.0f;
+            this->bFirst = false;
+        }
+        float x = ev.motion.x;
+        float y = ev.motion.y;
+        this->camera->AddPitchInput(y * this->cameraSensitive);
+        this->camera->AddYawInput(x * this->cameraSensitive);
+    }
 }
 
-void SDLRenderContext::Run()
+void SDLRenderContext::ContextExchange()
 {
-    if(nullptr != this->obj) {
-        this->obj->draw();
-    }
-    while (!stop) {
-        Uint32 endTick = SDL_GetTicks();
-        this->rate = (endTick - lastFrame) / 1000.0f;
-        lastFrame = endTick;
-        // display scene;
-        this->ProcessInput();
-        if(nullptr != this->obj)
-        {
-            this->obj->Tick(this->rate);
-        }
-        SDL_GL_SwapWindow(this->window);
-    }
+    SDL_GL_SwapWindow(this->window);
 }
 
 
@@ -133,5 +139,10 @@ void SDLRenderContext::Run()
 
 SDLRenderContext::~SDLRenderContext()
 {
-
+    SDL_DestroyWindow(this->window);
+    if(this->obj != nullptr)
+    {
+        this->obj->Destroy();
+        delete this->obj;
+    }
 }

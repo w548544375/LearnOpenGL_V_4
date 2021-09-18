@@ -4,22 +4,19 @@
 #include "Camera3D.h"
 #include "Object3D.h"
 #include <vector>
-class Scene3D
+class Scene3D : public Object3D
 {
 public:
     Scene3D();
-    void Run();
     void Add(Object3D *);
     void Remove(Object3D *);
     Object3D *Get(unsigned int id);
-
+    virtual void Draw();
+    virtual void Tick(float deltaTime);
+    virtual void Destroy();
 private:
     void init();
-
-    Camera3D *camera;
     std::vector<Object3D *> objects;
-    float deltaTime;
-    float lastFrame;
 };
 
 #endif
