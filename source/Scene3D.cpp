@@ -7,13 +7,12 @@ Scene3D::Scene3D()
 
 void Scene3D::init()
 {
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
 }
 
 void Scene3D::Draw()
 {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    std::vector<Object3D*>::iterator it;
+    std::vector<Object3D*>::iterator it = this->objects.begin();
     while (it != this->objects.end()) {
         Object3D * obj = *it;
         obj->Draw();
@@ -35,6 +34,7 @@ void Scene3D::Destroy()
 
 void Scene3D::Tick(float deltaTime)
 {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     std::vector<Object3D*>::iterator it = this->objects.begin();
     while(it != this->objects.end())
     {
