@@ -1,16 +1,17 @@
 ﻿#include "Camera3D.h"
 
-Camera3D::Camera3D(float fov, float aspect, float nearCut, float farCut)
+Camera3D::Camera3D(float fov, float aspect, float cameraNear, float cameraFar)
 {
     fieldOfView = fov;
     aspectio = aspect;
-    nearCut = nearCut;
-    farCut = farCut;
+    nearCut = cameraNear;
+    farCut = cameraFar;
     up = glm::vec3(0.0f, 1.0f, 0.0f);
-    lookTarget = glm::vec3(0.0f, 0.0f, -1.0f);
-    position = glm::vec3(0.0f, 0.0f, 2.0f);
-    this->updateProjection(aspectio);
-    this->LookAt(lookTarget);
+    lookTarget = glm::vec3(0.0f, 0.0f,0.0f);
+    position = glm::vec3(0.0f, 2.0f, 2.0f);
+    projectionMatrix = glm::perspective(fieldOfView,aspectio,this->nearCut,this->farCut);
+
+    viewMatrix = glm::lookAt(this->position,this->lookTarget,this->up);
 }
 
 void Camera3D::updateFOV(float fov)
@@ -62,7 +63,7 @@ void Camera3D::AddRollInput(float value)
 void Camera3D::rotate(float angle, glm::vec3 axis)
 {
     glm::mat4 rotMat(1.0);
-    glm::vec4 origin(lookTarget, 1.0);
+    glm::vec4 origin(glm::normalize(position - lookTarget), 1.0);
     rotMat = glm::rotate(rotMat, glm::radians(angle), axis);
     origin = rotMat * origin;
     lookTarget.x = origin.x;
@@ -96,5 +97,5 @@ CAMERA_INFO Camera3D::GetCameraInfo() const
 
 void Camera3D::LookAt(glm::vec3 target)
 {
-    viewMatrix = glm::lookAt(position, position + target, up);
+    viewMatrix = glm::lookAt(position,target, up);
 }

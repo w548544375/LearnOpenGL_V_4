@@ -1,7 +1,8 @@
 #include "SimpleLightScene.h"
 #include "ShaderLoader.h"
+#include "RenderContext.h"
 
-SimpleLightScene::SimpleLightScene(GLFWwindow *window) : Scene(window)
+SimpleLightScene::SimpleLightScene() : Object3D()
 {
     float vertices[] = {
         -0.5f, -0.5f, -0.5f, 0.0f, 0.0f,
@@ -107,20 +108,30 @@ int SimpleLightScene::SetTexture(std::string name, GLenum textureIdx, std::strin
 
 SimpleLightScene::~SimpleLightScene()
 {
-    Scene::~Scene();
+
 }
 
 void SimpleLightScene::SetParam()
 {
     unsigned int matLocation = glGetUniformLocation(this->program, "mvpMat");
     glm::mat4 translate = glm::mat4(1.0f);
+    glm::vec3 position = this->GetPosition();
     translate = glm::translate(translate, position);
     // translate = glm::scale(translate, glm::vec3(3.0f, 3.0f, 3.0f));
-    glm::mat4 mvp = this->camera->getProjectionMatrix() * this->camera->getViewMatrix() * translate;
+    RenderContext * rc = this->getRenderContext();
+    Camera3D * camera = rc->GetCtxCamera();
+    glm::mat4 projection = camera->getProjectionMatrix();
+    glm::mat4 view = camera->getViewMatrix();
+    glm::mat4 mvp = projection * view * translate;
     glUniformMatrix4fv(matLocation, 1, false, glm::value_ptr(mvp));
 }
 
-void SimpleLightScene::display()
+void SimpleLightScene::Draw()
+{
+    glClearColor(0.0f,0.0f,1.0f,1.0f);
+}
+
+void SimpleLightScene::Tick(float deltatime)
 {
     glUseProgram(this->program);
     glBindVertexArray(this->VAO);

@@ -7,7 +7,7 @@ Scene3D::Scene3D()
 
 void Scene3D::init()
 {
-    glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
+//    glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
 }
 
 void Scene3D::Draw()
@@ -46,6 +46,7 @@ void Scene3D::Tick(float deltaTime)
 
 void Scene3D::Add(Object3D *obj)
 {
+    obj->SetRenderContext(this->getRenderContext());
     this->objects.push_back(obj);
 }
 

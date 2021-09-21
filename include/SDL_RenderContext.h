@@ -23,7 +23,7 @@ private:
     float lastX;
     float lastY;
 
-
+    bool bRotate;
 };
 
 

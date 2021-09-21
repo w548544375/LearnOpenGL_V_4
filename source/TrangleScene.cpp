@@ -1,6 +1,6 @@
 #include "TrangleScene.h"
 
-TrangleScene::TrangleScene(GLFWwindow *window) : Scene(window)
+TrangleScene::TrangleScene() : Object3D()
 {
     const float points[] = {
         0.0f,
@@ -33,34 +33,11 @@ TrangleScene::TrangleScene(GLFWwindow *window) : Scene(window)
     glBufferData(GL_ARRAY_BUFFER, sizeof(points), points, GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-    // std::string vertex = "#version 330\nlayout(location = 0) in vec4 a_Position;\nlayout(location = 1) in vec4 a_Color;\nsmooth out vec4 v_Color; \n\n void main() \n{\ngl_Position = a_Position;\nv_Color = a_Color;\n\n}";
-    // std::string frag = "#version 330\nsmooth in vec4 v_Color;\nout vec4 outputColor;\n void main() \n{\noutputColor = v_Color;\n}";
-
-    // GLuint vertexShader = this->CreateShader(GL_VERTEX_SHADER, vertex);
-    // GLuint fragShader = this->CreateShader(GL_FRAGMENT_SHADER, frag);
-
-    // GLuint program = glCreateProgram();
-    // glAttachShader(program, vertexShader);
-    // glAttachShader(program, fragShader);
-
-    // glLinkProgram(program);
-
-    // GLint status;
-    // glGetProgramiv(program, GL_LINK_STATUS, &status);
-    // if (status == GL_FALSE)
-    // {
-    //     GLint infoLogLength;
-    //     glGetProgramiv(program, GL_INFO_LOG_LENGTH, &infoLogLength);
-
-    //     GLchar *strInfoLog = new GLchar[infoLogLength + 1];
-    //     glGetProgramInfoLog(program, infoLogLength, NULL, strInfoLog);
-    //     fprintf(stderr, "Linker failure: %s\n", strInfoLog);
-    //     delete[] strInfoLog;
-    // }
-
     ShaderLoader loader;
     ShaderSource shaders[] = {{GL_VERTEX_SHADER, "./shaders/trangle.vert"},
-                              {GL_FRAGMENT_SHADER, "./shaders/trangle.frag"}};
+                              {GL_FRAGMENT_SHADER, "./shaders/trangle.frag"},
+                             {GL_NONE, ""}
+                             };
     GLuint program = loader.creatProgram(shaders);
     glUseProgram(program);
 }
@@ -108,7 +85,7 @@ GLuint TrangleScene::CreateShader(GLenum eShaderType, const std::string &strShad
     return shader;
 }
 
-void TrangleScene::display()
+void TrangleScene::Tick(float delta)
 {
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glEnableVertexAttribArray(0);

@@ -15,6 +15,10 @@ public:
     int Height() const {return contextHeight;};
     void Run();
 
+    Camera3D * GetCtxCamera() const{
+        return this->camera;
+    }
+
     virtual bool hasError(){return false;};
     virtual void ProcessInput(){};
     virtual void ContextExchange(){};
@@ -23,8 +27,6 @@ protected:
     int contextHeight;
 
     bool errorOccured = false;
-    float fov = 45.0f;
-    glm::vec3 position;
     bool stop = false;
 
     float cameraSensitive;

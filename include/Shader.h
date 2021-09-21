@@ -26,7 +26,7 @@ protected:
     unsigned int vertexShader;
     unsigned int fragShader;
 
-    const char *loadSource(std::string source) const;
+    std::string loadSource(std::string source) const;
     unsigned int createShader(GLenum shaderType, const char *sourceBytes);
 
     void linkProgram();

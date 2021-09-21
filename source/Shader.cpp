@@ -2,10 +2,10 @@
 
 Shader::Shader(std::string vertexSource, std::string fragSource)
 {
-    const char *vertexbytes = this->loadSource(vertexSource);
-    const char *fragbytes = this->loadSource(fragSource);
-    this->vertexShader = this->createShader(GL_VERTEX_SHADER, vertexbytes);
-    this->fragShader = this->createShader(GL_FRAGMENT_SHADER, fragbytes);
+    std::string vertexbytes = this->loadSource(vertexSource);
+    std::string fragbytes = this->loadSource(fragSource);
+    this->vertexShader = this->createShader(GL_VERTEX_SHADER, vertexbytes.c_str());
+    this->fragShader = this->createShader(GL_FRAGMENT_SHADER, fragbytes.c_str());
     this->linkProgram();
 }
 
@@ -13,7 +13,7 @@ Shader::~Shader()
 {
 }
 
-const char *Shader::loadSource(std::string path) const
+std::string Shader::loadSource(std::string path) const
 {
     std::ifstream str(path);
     if (!str.is_open())
@@ -23,7 +23,7 @@ const char *Shader::loadSource(std::string path) const
     std::stringstream ssr;
     ssr << str.rdbuf();
     std::string sourceString = ssr.str();
-    return sourceString.c_str();
+    return sourceString;
 }
 
 unsigned int Shader::createShader(GLenum type, const char *data)

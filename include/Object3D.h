@@ -38,9 +38,9 @@ public:
 
     glm::mat4 GetModelMatrix() const;
     virtual ~Object3D(){};
-    virtual void Draw() = 0;
-    virtual void Tick(float delta) = 0;
-    virtual void Destroy() = 0;
+    virtual void Draw(){};
+    virtual void Tick(float delta){};
+    virtual void Destroy(){};
 private:
     glm::vec3 position;
     glm::vec3 rotation;

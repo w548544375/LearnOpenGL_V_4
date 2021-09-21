@@ -2,6 +2,7 @@
 
 SDLRenderContext::SDLRenderContext(const char * title,int width,int height) : RenderContext(title,width,height)
 {
+    this->bRotate = false;
     this->bFirst = true;
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION,4);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION,6);
@@ -58,6 +59,7 @@ SDLRenderContext::SDLRenderContext(const char * title,int width,int height) : Re
 
 void SDLRenderContext::ProcessInput()
 {
+
     SDL_Event event;
     while(SDL_PollEvent(&event) != 0)
     {
@@ -81,31 +83,31 @@ void SDLRenderContext::ProcessInput()
 
 void SDLRenderContext::HandleKeyDown(SDL_Event ev)
 {
-    float cameraSpeed = 2.5 * this->rate;
+    float cameraSpeed = 2.0 * this->rate;
     CAMERA_INFO info = camera->GetCameraInfo();
     switch(ev.key.keysym.sym)
     {
     case SDLK_w:
     {
-        glm::vec3 add = info.cameraPosition + info.target * cameraSpeed;
+        glm::vec3 add = info.cameraPosition - info.cameraPosition * cameraSpeed;
         this->camera->SetPosition(add);
         break;
     }
     case SDLK_s:
     {
-        glm::vec3 minus = info.cameraPosition - info.target * cameraSpeed;
+        glm::vec3 minus = info.cameraPosition + info.cameraPosition *cameraSpeed;
         this->camera->SetPosition(minus);
         break;
     }
     case SDLK_a:
     {
-        glm::vec3 moveL = info.cameraPosition - glm::normalize(glm::cross(info.target, info.cameraUp)) * cameraSpeed;
+        glm::vec3 moveL = info.cameraPosition - glm::normalize(glm::cross(info.cameraPosition - info.target, info.cameraUp)) * cameraSpeed;
         this->camera->SetPosition(moveL);
         break;
     }
     case SDLK_d:
     {
-        glm::vec3 moveR = info.cameraPosition + glm::normalize(glm::cross(info.target, info.cameraUp)) * cameraSpeed;
+        glm::vec3 moveR = info.cameraPosition + glm::normalize(glm::cross(info.cameraPosition - info.target, info.cameraUp)) * cameraSpeed;
         this->camera->SetPosition(moveR);
         break;
     }
@@ -114,7 +116,19 @@ void SDLRenderContext::HandleKeyDown(SDL_Event ev)
 
 void SDLRenderContext::HandleMouseEvent(SDL_Event ev)
 {
-    if(ev.type == SDL_MOUSEMOTION) {
+    if(ev.type == SDL_MOUSEBUTTONDOWN && ev.button.button == SDL_BUTTON_RIGHT){
+//        SDL_SetRelativeMouseMode(SDL_TRUE);
+//        SDL_SetWindowGrab(this->window,SDL_TRUE);
+        bRotate = true;
+    }
+    if(ev.type == SDL_MOUSEBUTTONUP && ev.button.button == SDL_BUTTON_RIGHT) {
+//        SDL_SetRelativeMouseMode(SDL_FALSE);
+//        SDL_SetWindowGrab(this->window,SDL_FALSE);
+        bRotate = false;
+    }
+    if(ev.type == SDL_MOUSEMOTION && bRotate) {
+        std::cout << ev.motion.x << std::endl;
+        std::flush(std::cout);
         //        std::cout << "Motion({x:" << ev.motion.x  << ",y:" << ev.motion.y << "}),RelMotion({x:" << ev.motion.xrel << ",y:" << ev.motion.yrel << "});\n";
         if(bFirst){
             this->lastX = this->Width() / 2.0f;
@@ -125,6 +139,17 @@ void SDLRenderContext::HandleMouseEvent(SDL_Event ev)
         float y = ev.motion.y;
         this->camera->AddPitchInput(y * this->cameraSensitive);
         this->camera->AddYawInput(x * this->cameraSensitive);
+    }
+
+    if(ev.type == SDL_MOUSEWHEEL)
+    {
+        CAMERA_INFO info = this->camera->GetCameraInfo();
+        float fov = info.fov - ev.wheel.y * 108.0f * this->rate;
+        if(fov > 89.9f)
+            fov = 89.9f;
+        if(fov < 0.1f)
+            fov = 0.1f;
+        this->camera->updateFOV(fov);
     }
 }
 

@@ -4,15 +4,16 @@
 #include "Scene.h"
 #include "Camera3D.h"
 
-class SimpleLightScene : public Scene
+class SimpleLightScene : public Object3D
 {
 private:
     /* data */
 public:
-    SimpleLightScene(GLFWwindow *window);
-    virtual ~SimpleLightScene();
-    virtual void display();
+    SimpleLightScene();
+    ~SimpleLightScene();
 
+    virtual void Tick(float delta);
+    virtual void Draw();
 private:
     int SetTexture(std::string name, GLenum textureIdx, std::string path, int textureLocation);
     void init();
