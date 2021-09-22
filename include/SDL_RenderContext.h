@@ -18,11 +18,6 @@ private:
 
     virtual void ContextExchange();
 
-
-    bool bFirst;
-    float lastX;
-    float lastY;
-
     bool bRotate;
 };
 

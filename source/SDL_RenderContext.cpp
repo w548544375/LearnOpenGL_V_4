@@ -3,7 +3,6 @@
 SDLRenderContext::SDLRenderContext(const char * title,int width,int height) : RenderContext(title,width,height)
 {
     this->bRotate = false;
-    this->bFirst = true;
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION,4);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION,6);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK,SDL_GL_CONTEXT_PROFILE_CORE);
@@ -101,13 +100,13 @@ void SDLRenderContext::HandleKeyDown(SDL_Event ev)
     }
     case SDLK_a:
     {
-        glm::vec3 moveL = info.cameraPosition - glm::normalize(glm::cross(info.cameraPosition - info.target, info.cameraUp)) * cameraSpeed;
+        glm::vec3 moveL = info.cameraPosition - glm::normalize(glm::cross((info.cameraPosition + info.front), info.up)) * cameraSpeed;
         this->camera->SetPosition(moveL);
         break;
     }
     case SDLK_d:
     {
-        glm::vec3 moveR = info.cameraPosition + glm::normalize(glm::cross(info.cameraPosition - info.target, info.cameraUp)) * cameraSpeed;
+        glm::vec3 moveR = info.cameraPosition + glm::normalize(glm::cross((info.cameraPosition + info.front), info.up)) * cameraSpeed;
         this->camera->SetPosition(moveR);
         break;
     }
@@ -117,28 +116,22 @@ void SDLRenderContext::HandleKeyDown(SDL_Event ev)
 void SDLRenderContext::HandleMouseEvent(SDL_Event ev)
 {
     if(ev.type == SDL_MOUSEBUTTONDOWN && ev.button.button == SDL_BUTTON_RIGHT){
-//        SDL_SetRelativeMouseMode(SDL_TRUE);
+        SDL_SetRelativeMouseMode(SDL_TRUE);
 //        SDL_SetWindowGrab(this->window,SDL_TRUE);
         bRotate = true;
     }
     if(ev.type == SDL_MOUSEBUTTONUP && ev.button.button == SDL_BUTTON_RIGHT) {
-//        SDL_SetRelativeMouseMode(SDL_FALSE);
+        SDL_SetRelativeMouseMode(SDL_FALSE);
 //        SDL_SetWindowGrab(this->window,SDL_FALSE);
         bRotate = false;
     }
     if(ev.type == SDL_MOUSEMOTION && bRotate) {
-        std::cout << ev.motion.x << std::endl;
-        std::flush(std::cout);
-        //        std::cout << "Motion({x:" << ev.motion.x  << ",y:" << ev.motion.y << "}),RelMotion({x:" << ev.motion.xrel << ",y:" << ev.motion.yrel << "});\n";
-        if(bFirst){
-            this->lastX = this->Width() / 2.0f;
-            this->lastY = this->Height() / 2.0f;
-            this->bFirst = false;
-        }
-        float x = ev.motion.x;
-        float y = ev.motion.y;
-        this->camera->AddPitchInput(y * this->cameraSensitive);
-        this->camera->AddYawInput(x * this->cameraSensitive);
+        float x = ev.motion.xrel;
+        float y = ev.motion.yrel;
+//                std::cout << "Motion({x:" << x  << ",y:" << y << "}),RelMotion({x:" << lastX << ",y:" << lastY << "});\n";
+//                std::flush(std::cout);
+        this->camera->AddPitchInput(y *  0.0001);
+        this->camera->AddYawInput(x * 0.0001);
     }
 
     if(ev.type == SDL_MOUSEWHEEL)

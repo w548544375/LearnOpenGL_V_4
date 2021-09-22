@@ -7,11 +7,10 @@ Camera3D::Camera3D(float fov, float aspect, float cameraNear, float cameraFar)
     nearCut = cameraNear;
     farCut = cameraFar;
     up = glm::vec3(0.0f, 1.0f, 0.0f);
-    lookTarget = glm::vec3(0.0f, 0.0f,0.0f);
-    position = glm::vec3(0.0f, 2.0f, 2.0f);
+    front = glm::vec3(0.0f,0.0f,-1.0f);
+    position = glm::vec3(0.0f, 1.0f, 20.0f);
     projectionMatrix = glm::perspective(fieldOfView,aspectio,this->nearCut,this->farCut);
-
-    viewMatrix = glm::lookAt(this->position,this->lookTarget,this->up);
+    viewMatrix = glm::lookAt(this->position,this->position + this->front,this->up);
 }
 
 void Camera3D::updateFOV(float fov)
@@ -30,7 +29,7 @@ void Camera3D::SetPosition(glm::vec3 newPos)
     position.x = newPos.x;
     position.y = newPos.y;
     position.z = newPos.z;
-    this->LookAt(lookTarget);
+    this->LookAt(front);
 }
 
 /**
@@ -62,14 +61,13 @@ void Camera3D::AddRollInput(float value)
 
 void Camera3D::rotate(float angle, glm::vec3 axis)
 {
-    glm::mat4 rotMat(1.0);
-    glm::vec4 origin(glm::normalize(position - lookTarget), 1.0);
-    rotMat = glm::rotate(rotMat, glm::radians(angle), axis);
-    origin = rotMat * origin;
-    lookTarget.x = origin.x;
-    lookTarget.y = origin.y;
-    lookTarget.z = origin.z;
-    this->LookAt(lookTarget);
+    glm::vec3 dir = glm::normalize(front);
+    glm::quat qua = glm::angleAxis(glm::degrees(angle),axis);
+    glm::vec3 res = qua * dir;
+//    std::cout << "front("<< front.x << "," << front.y << "," << front.z << ")." << "res({x:" << res.x  << ",y:" << res.y << "," << res.z <<"})\n";
+//    std::flush(std::cout);
+    front = res;
+    this->LookAt(front);
 }
 
 glm::mat4 Camera3D::getProjectionMatrix() const
@@ -89,13 +87,13 @@ CAMERA_INFO Camera3D::GetCameraInfo() const
     cameraInfo.aspect = aspectio;
     cameraInfo.nearCut = nearCut;
     cameraInfo.farCut = farCut;
-    cameraInfo.cameraUp = up;
-    cameraInfo.target = lookTarget;
+    cameraInfo.up = up;
+    cameraInfo.front = this->front;
     cameraInfo.cameraPosition = position;
     return cameraInfo;
 }
 
 void Camera3D::LookAt(glm::vec3 target)
 {
-    viewMatrix = glm::lookAt(position,target, up);
+    viewMatrix = glm::lookAt(position,this->position + target, up);
 }

@@ -39,22 +39,22 @@ void Scene::ProcessInput(GLFWwindow *window)
     CAMERA_INFO info = camera->GetCameraInfo();
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
     {
-        glm::vec3 newPos = info.cameraPosition + info.target * cameraSpeed;
+        glm::vec3 newPos = info.cameraPosition + info.front * cameraSpeed;
         this->camera->SetPosition(newPos);
     }
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
     {
-        glm::vec3 newPos = info.cameraPosition - info.target * cameraSpeed;
+        glm::vec3 newPos = info.cameraPosition - info.front * cameraSpeed;
         this->camera->SetPosition(newPos);
     }
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
     {
-        glm::vec3 newPos = info.cameraPosition - glm::normalize(glm::cross(info.target, info.cameraUp)) * cameraSpeed;
+        glm::vec3 newPos = info.cameraPosition - glm::normalize(glm::cross(info.front, info.up)) * cameraSpeed;
         this->camera->SetPosition(newPos);
     }
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
     {
-        glm::vec3 newPos = info.cameraPosition + glm::normalize(glm::cross(info.target, info.cameraUp)) * cameraSpeed;
+        glm::vec3 newPos = info.cameraPosition + glm::normalize(glm::cross(info.front, info.up)) * cameraSpeed;
         this->camera->SetPosition(newPos);
     }
 }

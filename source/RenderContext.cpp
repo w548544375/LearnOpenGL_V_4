@@ -5,7 +5,7 @@ RenderContext::RenderContext(const char * title,int width,int height)
     contextHeight = height;
     contextWidth = width;
     this->cameraSensitive = 0.05;
-    this->camera = new Camera3D(45.0f,contextWidth * 1.0f/contextHeight,0.1f,100.0f);
+    this->camera = new Camera3D(45.0f,contextWidth * 1.0f/contextHeight,1.0f,100.0f);
 //    this->camera->updateProjection(fov);
 }
 

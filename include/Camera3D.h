@@ -9,8 +9,8 @@ typedef struct PerspectiveCameraInfo
     float aspect;
     float nearCut;
     float farCut;
-    glm::vec3 cameraUp;
-    glm::vec3 target;
+    glm::vec3 up;
+    glm::vec3 front;
     glm::vec3 cameraPosition;
 } CAMERA_INFO, *PCAMERA_INFO;
 
@@ -39,8 +39,6 @@ public:
 
     void AddRollInput(float value);
 
-    void rotate(float angle, glm::vec3 axis);
-
 private:
     float fieldOfView;
     float aspectio;
@@ -48,11 +46,13 @@ private:
     float farCut;
 
     glm::vec3 up;
-    glm::vec3 lookTarget;
+    glm::vec3 front;
     glm::vec3 position;
 
     glm::mat4 projectionMatrix;
     glm::mat4 viewMatrix;
+
+    void rotate(float angle, glm::vec3 axis);
 };
 
 #endif
