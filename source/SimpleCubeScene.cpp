@@ -88,8 +88,6 @@ SimpleCubeScene::SimpleCubeScene() : Object3D()
 
 void SimpleCubeScene::Tick(float delta)
 {
-//    glClearColor(1.0f,1.0f,1.0f,1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D,this->texture0);
     shader->active();
@@ -97,9 +95,7 @@ void SimpleCubeScene::Tick(float delta)
     glm::mat4 projection = this->getRenderContext()->GetCtxCamera()->getProjectionMatrix();
 //    glm::mat4 view = glm::lookAt(glm::vec3(0.0f,2.0f,3.0f),glm::vec3(0.0f,0.0f,0.0f),glm::vec3(0.0f,1.0f,0.0f));
     glm::mat4 view = this->getRenderContext()->GetCtxCamera()->getViewMatrix();
-    glm::mat4 model = glm::mat4(1.0f);
-    model = glm::translate(model,this->GetPosition());
-    glm::mat4 mvp = projection * view *model;
+    glm::mat4 mvp = projection * view * this->GetModelMatrix();
     shader->setMat4("mvpMat",mvp);
     glDrawArrays(GL_TRIANGLES, 0, 36);
 }
