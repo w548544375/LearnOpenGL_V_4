@@ -1,6 +1,7 @@
 #ifndef __OBJECT_3D__
 #define __OBJECT_3D__
 #include "common.h"
+#include "WorldContext.h"
 
 class RenderContext;
 
@@ -13,7 +14,13 @@ public:
     void SetRenderContext(RenderContext* ctx){
         this->renderCtx = ctx;
     }
-    RenderContext * getRenderContext() {return this->renderCtx;};
+    RenderContext * getRenderContext() {
+        if(this->renderCtx == nullptr)
+        {
+            return World::GetWorld()->GetRenderContext();
+        }
+        return this->renderCtx;
+    };
     glm::vec3 GetPosition() const
     {
         return glm::vec3(position.x, position.y, position.z);
@@ -46,7 +53,7 @@ private:
     glm::vec3 rotation;
     glm::vec3 scale;
     glm::mat4 modelMat;
-    RenderContext * renderCtx;
+    RenderContext * renderCtx = nullptr;
 };
 
 #endif

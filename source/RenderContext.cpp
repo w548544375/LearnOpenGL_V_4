@@ -1,4 +1,5 @@
 #include "RenderContext.h"
+#include "WorldContext.h"
 
 RenderContext::RenderContext(const char * title,int width,int height)
 {
@@ -7,6 +8,7 @@ RenderContext::RenderContext(const char * title,int width,int height)
     this->cameraSensitive = 0.05;
     this->camera = new Camera3D(45.0f,contextWidth * 1.0f/contextHeight,1.0f,100.0f);
 //    this->camera->updateProjection(fov);
+    World::GetWorld()->SetWorldRenderContext(this);
 }
 
 

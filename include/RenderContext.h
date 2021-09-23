@@ -33,7 +33,7 @@ protected:
     Camera3D * camera;
     Object3D * obj = nullptr;
 
-    UINT32 lastFrame;
+    Uint64 lastFrame;
     float rate;
     friend class Object3D;
 };

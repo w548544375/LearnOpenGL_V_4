@@ -97,15 +97,13 @@ void Shader::setInt(std::string name, int value)
 void Shader::setVec3f(std::string name, float x, float y, float z)
 {
     int location = glGetUniformLocation(this->program, name.c_str());
-    float vec[] = {x, y, z};
-    glUniform3fv(location, 3, vec);
+    glUniform3f(location,x,y,z);
 }
 
 void Shader::setVec4f(std::string name, float x, float y, float z, float w)
 {
     int location = glGetUniformLocation(this->program, name.c_str());
-    float vec[] = {x, y, z, w};
-    glUniform3fv(location, 4, vec);
+    glUniform4f(location,x,y,z,w);
 }
 
 void Shader::setMat4(std::string name, glm::mat4 mat)

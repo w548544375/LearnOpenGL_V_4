@@ -8,7 +8,7 @@ Camera3D::Camera3D(float fov, float aspect, float cameraNear, float cameraFar)
     farCut = cameraFar;
     up = glm::vec3(0.0f, 1.0f, 0.0f);
     front = glm::vec3(0.0f,0.0f,-1.0f);
-    position = glm::vec3(0.0f, 1.0f, 20.0f);
+    position = glm::vec3(-6.0f, 6.0f, 20.0f);
     projectionMatrix = glm::perspective(fieldOfView,aspectio,this->nearCut,this->farCut);
     viewMatrix = glm::lookAt(this->position,this->position + this->front,this->up);
 }

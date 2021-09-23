@@ -21,7 +21,7 @@ SDLRenderContext::SDLRenderContext(const char * title,int width,int height) : Re
         return;
     }
 
-    SDL_Renderer * render = SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED);
+    SDL_Renderer * render = SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if(render == nullptr)
     {
         errorOccured = true;
