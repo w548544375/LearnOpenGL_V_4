@@ -6,21 +6,19 @@ layout(location = 1) in vec2 vCoord;
 
 layout(location = 2) in vec3 aNormal;
 
-uniform mat4 mvpMat;
-
 uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
 
-out vec2 v_Coord;
-
-out vec3 oNormal;
 
 out vec3 FragPos;
+out vec3 Normal;
 
 
 void main() {
-    FragPos = vec3(model * vec4(vPosition,1.0));
-    oNormal = mat3(transpose(inverse(model))) * aNormal;
-    gl_Position = mvpMat * vec4(FragPos, 1.0);
-    v_Coord = vCoord;
+    FragPos = vec3(model * vec4(vPosition, 1.0));
+    Normal = mat3(transpose(inverse(model))) * aNormal;  
+    
+    gl_Position = projection * view * vec4(FragPos, 1.0);
     //  oNormal = aNormal;
 }

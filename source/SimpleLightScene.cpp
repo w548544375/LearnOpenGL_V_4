@@ -66,8 +66,8 @@ SimpleLightScene::SimpleLightScene() : Object3D()
 
 void SimpleLightScene::init()
 {
-    ShaderSource shaders[] = {{GL_VERTEX_SHADER, "./shaders/simple_light.vert"},
-                              {GL_FRAGMENT_SHADER, "./shaders/simple_light.frag"},
+    ShaderSource shaders[] = {{GL_VERTEX_SHADER, "../shaders/simple_light.vert"},
+                              {GL_FRAGMENT_SHADER, "../shaders/simple_light.frag"},
                               {GL_NONE, ""}};
     ShaderLoader loader;
     this->program = loader.creatProgram(shaders);

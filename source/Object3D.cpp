@@ -18,11 +18,11 @@ void Object3D::SetPosition(glm::vec3 newPos)
 
 void Object3D::SetRotation(float angle, glm::vec3 rotationAxis)
 {
-    if (rotationAxis.x == 0.0f)
+    if (rotationAxis.x != 0.0f)
         rotation.x += angle;
-    if (rotationAxis.y == 0.0f)
+    if (rotationAxis.y != 0.0f)
         rotation.y += angle;
-    if (rotationAxis.z == 0.0f)
+    if (rotationAxis.z != 0.0f)
         rotation.z += angle;
     modelMat = glm::rotate(modelMat, angle, rotationAxis);
 }
