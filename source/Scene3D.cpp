@@ -7,6 +7,7 @@ Scene3D::Scene3D()
 
 void Scene3D::init()
 {
+    glEnable(GL_DEPTH_TEST);
 //    glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
 }
 

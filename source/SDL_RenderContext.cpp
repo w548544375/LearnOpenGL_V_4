@@ -82,32 +82,28 @@ void SDLRenderContext::ProcessInput()
 
 void SDLRenderContext::HandleKeyDown(SDL_Event ev)
 {
-    float cameraSpeed = 2.0 * this->rate;
+    float cameraSpeed = 2.5f * this->rate;
     CAMERA_INFO info = camera->GetCameraInfo();
     switch(ev.key.keysym.sym)
     {
     case SDLK_w:
     {
-        glm::vec3 add = info.cameraPosition - info.cameraPosition * cameraSpeed;
-        this->camera->SetPosition(add);
+        this->camera->SetPosition(info.front * cameraSpeed );
         break;
     }
     case SDLK_s:
     {
-        glm::vec3 minus = info.cameraPosition + info.cameraPosition *cameraSpeed;
-        this->camera->SetPosition(minus);
+        this->camera->SetPosition(-info.front * cameraSpeed);
         break;
     }
     case SDLK_a:
     {
-        glm::vec3 moveL = info.cameraPosition - glm::normalize(glm::cross((info.cameraPosition + info.front), info.up)) * cameraSpeed;
-        this->camera->SetPosition(moveL);
+        this->camera->SetPosition(-info.right * cameraSpeed);
         break;
     }
     case SDLK_d:
     {
-        glm::vec3 moveR = info.cameraPosition + glm::normalize(glm::cross((info.cameraPosition + info.front), info.up)) * cameraSpeed;
-        this->camera->SetPosition(moveR);
+        this->camera->SetPosition(info.right * cameraSpeed);
         break;
     }
     }

@@ -49,46 +49,46 @@ Cube::Cube() : Object3D()
 
     float normals[] = {
         -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-          0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-          0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-          0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-         -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-         -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+         0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+         0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+         0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+        -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
 
-         -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-          0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-          0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-          0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-         -0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-         -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+         0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+         0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+         0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+        -0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
 
-         -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-         -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-         -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-         -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-         -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-         -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+        -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+        -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
 
-          0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-          0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-          0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-          0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-          0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-          0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+         0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+         0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+         0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+         0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+         0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+         0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
 
-         -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-          0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-          0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-          0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-         -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-         -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+         0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+         0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+         0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
 
-         -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-          0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-          0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-          0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-         -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-         -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
+        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+         0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+         0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+         0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+        -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
     };
 
     glGenVertexArrays(1,&this->vao);
@@ -114,7 +114,7 @@ Cube::Cube() : Object3D()
     glEnableVertexAttribArray(2);
 
 
-    this->shader = new Shader("./shaders/default.vert","./shaders/default.frag");
+    this->shader = new Shader("../shaders/default.vert","../shaders/default.frag");
 }
 
 
@@ -126,8 +126,10 @@ void Cube::Draw()
         shader->active();
         glm::mat4 projection = this->getRenderContext()->GetCtxCamera()->getProjectionMatrix();
         glm::mat4 view = this->getRenderContext()->GetCtxCamera()->getViewMatrix();
-        glm::mat4 mvp = projection * view * this->GetModelMatrix();
-        shader->setMat4("mvpMat",mvp);
+        glm::mat4 model = this->GetModelMatrix();
+        shader->setMat4("projection",projection);
+        shader->setMat4("view",view);
+        shader->setMat4("model",model);
     }
     glDrawArrays(GL_TRIANGLES, 0, 36);
     glBindVertexArray(0);
@@ -135,4 +137,5 @@ void Cube::Draw()
 
 void Cube::Tick(float delta)
 {
+
 }

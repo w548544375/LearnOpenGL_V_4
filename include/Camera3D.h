@@ -12,6 +12,7 @@ typedef struct PerspectiveCameraInfo
     glm::vec3 up;
     glm::vec3 front;
     glm::vec3 cameraPosition;
+    glm::vec3 right;
 } CAMERA_INFO, *PCAMERA_INFO;
 
 class Camera3D
@@ -21,17 +22,15 @@ public:
 
     void updateFOV(float fov);
 
-    void updateProjection(float aspec);
-
     void SetPosition(glm::vec3 newPos);
+
+    void updateProjection(float aspec);
 
     glm::mat4 getProjectionMatrix() const;
 
     glm::mat4 getViewMatrix() const;
 
     CAMERA_INFO GetCameraInfo() const;
-
-    void LookAt(glm::vec3 target);
 
     void AddYawInput(float value);
 
@@ -48,11 +47,11 @@ private:
     glm::vec3 up;
     glm::vec3 front;
     glm::vec3 position;
-
-    glm::mat4 projectionMatrix;
-    glm::mat4 viewMatrix;
+    glm::vec3 WorldUp;
+    glm::vec3 Right;
 
     void rotate(float angle, glm::vec3 axis);
+    void Update();
 };
 
 #endif
