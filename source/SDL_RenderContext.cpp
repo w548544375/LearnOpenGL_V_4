@@ -91,6 +91,16 @@ void SDLRenderContext::HandleKeyDown(SDL_Event ev)
         this->camera->SetPosition(info.front * cameraSpeed );
         break;
     }
+    case SDLK_q:
+    {
+        this->camera->SetPosition(info.up * cameraSpeed);
+        break;
+    }
+    case SDLK_e:
+    {
+        this->camera->SetPosition(-info.up * cameraSpeed);
+        break;
+    }
     case SDLK_s:
     {
         this->camera->SetPosition(-info.front * cameraSpeed);

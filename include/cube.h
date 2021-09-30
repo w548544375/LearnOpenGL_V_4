@@ -18,6 +18,9 @@ public:
         }
         this->shader = newShader;
     }
+    Shader * GetShader(){
+        return this->shader;
+    }
 private:
     Shader * shader;
     unsigned int vao;

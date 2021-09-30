@@ -63,4 +63,14 @@ void Scene3D::Remove(Object3D *obj)
     }
 }
 
+std::vector<Object3D*> Scene3D::GetAll()
+{
+    return this->objects;
+}
+
+
+Object3D * Scene3D::Get(unsigned int id)
+{
+    return this->objects.at(id);
+}
 

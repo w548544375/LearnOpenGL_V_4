@@ -11,6 +11,7 @@ public:
     void Add(Object3D *);
     void Remove(Object3D *);
     Object3D *Get(unsigned int id);
+    std::vector<Object3D *> GetAll();
     virtual void Draw();
     virtual void Tick(float deltaTime);
     virtual void Destroy();

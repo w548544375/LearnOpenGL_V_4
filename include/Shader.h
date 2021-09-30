@@ -19,7 +19,6 @@ public:
     void setVec4f(std::string name, float x, float y, float z, float w);
 
     void setMat4(std::string name, glm::mat4 mat);
-
 protected:
     unsigned int program;
 

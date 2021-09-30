@@ -3,14 +3,17 @@
 #include "SDL_RenderContext.h"
 #include "Scene3D.h"
 #include "cube.h"
-#include "BasicLights.h"
+//#include "BasicLights.h"
+//#include "LightTexture.h"
+#include "LightCasters.h"
+#include "LoadModel.h"
 //#include "TrangleScene.h"
 //export MESA_GL_VERSION_OVERRIDE=3.3
 using namespace std;
 const int DEFAULT_WINDOW_WIDHT = 800;
 const int DEFAULT_WINDOW_HEIGHT = 600;
 
-void processInput();
+
 int main(int argc, char *argv[])
 {
     RenderContext * ctx = new SDLRenderContext("OpenGLDemo",DEFAULT_WINDOW_WIDHT,DEFAULT_WINDOW_HEIGHT);
@@ -18,7 +21,7 @@ int main(int argc, char *argv[])
         std::cerr << "error occured while create context" << std::endl;
         exit(1);
     }
-    Scene3D * scene = new BasicLights;
+    Scene3D * scene = new LoadModel;
     ctx->SetRenderObj(scene);
 //    glm::vec3 cubePositions[] = {
 //        glm::vec3( 0.0f,  0.0f,  0.0f),
