@@ -36,6 +36,7 @@ private:
 
     std::vector<Texture> loadMaterialTextures(aiMaterial * mat,aiTextureType type,std::string whatType,const aiScene * scene);
     unsigned int TextureFromFile(const char *path, const std::string &directory, bool gamma);
+    unsigned int LoadTextureFromAssImp(const aiTexture* aiTex, GLint wrapMode, GLint MagFilterMode, GLint MinFilterMode);
 };
 
 
